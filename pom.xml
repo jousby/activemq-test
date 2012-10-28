@@ -4,16 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>name.ousby.james</groupId>
-  <artifactId>activemq-test</artifactId>
+  <artifactId>activemq-testbed</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
-  <name>activemq-test</name>
+  <name>activemq-testbed</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <activemq-version>5.6.0</activemq-version>    
-    
+    <activemq-version>5.6.0</activemq-version>        
     <!-- 
       These deps need to match the deps used to build the activemq version 
       you are targeting. 
@@ -22,31 +21,19 @@
     <jetty-version>7.6.1.v20120215</jetty-version>
     <camel-version>2.9.2</camel-version>
     <opensymphony-version>2.4.2</opensymphony-version>
-    
-    <!-- 
-      These need to match your own env, can be overridden on the cmd line. 
-    -->
-    <java.version>1.7.0_07</java.version>
-    <!-- You only need a local install of amq if you want to run the admin webapp -->
-    <activemq.home.dir>C:\dev\java\servers\apache-activemq-5.6.0</activemq.home.dir>
-    <activemq.config.dir>./src/test/resources/activemq</activemq.config.dir>
-    <activemq.config.file>activemq.xml</activemq.config.file>
   </properties>
 
   <dependencies>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.10</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <build>
     <plugins>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -56,65 +43,11 @@
           <target>1.7</target>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.activemq.tooling</groupId>
-        <artifactId>maven-activemq-plugin</artifactId>
-        <version>${activemq-version}</version>
-        <configuration>
-          <configUri>xbean:file:${activemq.config.dir}/${activemq.config.file}</configUri>
-          <fork>false</fork>
-          <systemProperties>
-            <property>
-              <name>activemq.home</name>
-              <value>${activemq.home.dir}</value>
-            </property> 
-            <property>
-              <name>activemq.conf</name>
-              <value>${activemq.config.dir}</value>
-            </property>
-            <property>
-              <name>activemq.data</name>
-              <value>./target/activemq-data/</value>
-            </property>
-            <property>
-              <name>org.apache.activemq.default.directory.prefix</name>
-              <value>./target/</value>
-            </property>
-          </systemProperties>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.eclipse.jetty.aggregate</groupId>
-            <artifactId>jetty-all-server</artifactId>
-            <version>${jetty-version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-web</artifactId>
-            <version>${activemq-version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring-version}</version>
-          </dependency>
-          <dependency>
-            <groupId>opensymphony</groupId>
-            <artifactId>sitemesh</artifactId>
-            <version>${opensymphony-version}</version>
-          </dependency>
-          <!-- Needed by the jsp compiler to access 'javac', again only if you need the admin webapp -->
-          <dependency>
-            <groupId>com.sun</groupId>
-            <artifactId>tools</artifactId>
-            <version>${java.version}</version>
-            <scope>system</scope>
-            <systemPath>${java.home}/../lib/tools.jar</systemPath>
-          </dependency> 
-        </dependencies>
-      </plugin>
-
     </plugins>
   </build>
+  
+  <modules>
+  	<module>broker</module>
+  </modules>
+  	
 </project>
