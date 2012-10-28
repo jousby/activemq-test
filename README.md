@@ -22,7 +22,6 @@ To spin up the broker:
 2. Run the following maven command to start the broker from the broker sub module. This will start a broker on port '61616' using the configuration file ./src/test/resources/activemq.xml and an admin web console at http://localhost:8161/admin 
 ```
 mvn activemq:run
-
 ```
 
 The producer module
