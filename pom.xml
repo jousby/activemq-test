@@ -12,14 +12,25 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <activemq-version>5.6.0</activemq-version>
+    <activemq-version>5.6.0</activemq-version>    
     
-    <!-- Theses deps need to match the deps used to build the activemq version 
-      you are targeting -->
+    <!-- 
+      These deps need to match the deps used to build the activemq version 
+      you are targeting. 
+    -->
     <spring-version>3.0.6.RELEASE</spring-version>
     <jetty-version>7.6.1.v20120215</jetty-version>
     <camel-version>2.9.2</camel-version>
     <opensymphony-version>2.4.2</opensymphony-version>
+    
+    <!-- 
+      These need to match your own env, can be overridden on the cmd line. 
+    -->
+    <java.version>1.7.0_07</java.version>
+    <!-- You only need a local install of amq if you want to run the admin webapp -->
+    <activemq.home.dir>C:\dev\java\servers\apache-activemq-5.6.0</activemq.home.dir>
+    <activemq.config.dir>./src/test/resources/activemq</activemq.config.dir>
+    <activemq.config.file>activemq.xml</activemq.config.file>
   </properties>
 
   <dependencies>
@@ -51,16 +62,16 @@
         <artifactId>maven-activemq-plugin</artifactId>
         <version>${activemq-version}</version>
         <configuration>
-          <configUri>xbean:file:./src/test/resources/activemq/activemq.xml</configUri>
+          <configUri>xbean:file:${activemq.config.dir}/${activemq.config.file}</configUri>
           <fork>false</fork>
           <systemProperties>
             <property>
               <name>activemq.home</name>
-              <value>/usr/dev/java/servers/apache-activemq-5.6.0/</value>
-            </property>
+              <value>${activemq.home.dir}</value>
+            </property> 
             <property>
               <name>activemq.conf</name>
-              <value>./src/test/resources/activemq/</value>
+              <value>${activemq.config.dir}</value>
             </property>
             <property>
               <name>activemq.data</name>
@@ -93,12 +104,11 @@
             <artifactId>sitemesh</artifactId>
             <version>${opensymphony-version}</version>
           </dependency>
-          <!-- Needed by the jsp compiler to access 'javac' -->
-          <!-- You will probably want to change the version number / path to suit your env. -->
+          <!-- Needed by the jsp compiler to access 'javac', again only if you need the admin webapp -->
           <dependency>
             <groupId>com.sun</groupId>
             <artifactId>tools</artifactId>
-            <version>1.7.0_04</version>
+            <version>${java.version}</version>
             <scope>system</scope>
             <systemPath>${java.home}/../lib/tools.jar</systemPath>
           </dependency> 
