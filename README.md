@@ -31,5 +31,4 @@ Run the following maven command from the producer sub module to start the messag
 
 ```
 mvn exec:java
-
 ```
