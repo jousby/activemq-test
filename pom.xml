@@ -127,6 +127,7 @@
   <modules>
   	<module>broker</module>
     <module>producer</module>
+    <module>consumer</module>
   </modules>
   	
 </project>
