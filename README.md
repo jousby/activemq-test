@@ -32,3 +32,12 @@ Run the following maven command from the producer sub module to start the messag
 ```
 mvn exec:java
 ```
+
+The consumer module
+-------------------
+
+Run the following maven command from the consumer sub module to start the message consumer. There is one spring context file 'consumer-context.xml' and one Java class file 'Consumer.java' involved here. 
+
+```
+mvn exec:java
+```
